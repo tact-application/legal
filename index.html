@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TACT — Legal / Légal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --border: #1e1e2e;
+      --accent: #7c5cfc;
+      --accent-soft: rgba(124, 92, 252, 0.12);
+      --text: #e8e8f0;
+      --text-muted: #7a7a9a;
+      --text-dim: #4a4a6a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      min-height: 100vh;
+    }
+
+    /* Background grain */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 60px 24px 120px;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 64px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      letter-spacing: 0.12em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* Language switcher */
+    .lang-switcher {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .lang-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .lang-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .lang-btn.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Tab switcher */
+    .tab-switcher {
+      display: flex;
+      gap: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 48px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    /* Content sections */
+    .content-section { display: none; }
+    .content-section.active { display: block; }
+
+    .update-date {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-bottom: 40px;
+      letter-spacing: 0.04em;
+    }
+
+    .intro {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      line-height: 1.8;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--text);
+      margin: 48px 0 16px;
+      font-weight: 400;
+    }
+
+    h2::before {
+      content: attr(data-num);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    ul {
+      list-style: none;
+      margin: 16px 0 24px;
+    }
+
+    ul li {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      padding: 6px 0 6px 20px;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+
+    ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.8rem;
+    }
+
+    .highlight-box {
+      background: var(--accent-soft);
+      border: 1px solid rgba(124, 92, 252, 0.2);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+
+    .highlight-box p {
+      color: var(--text);
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(124, 92, 252, 0.3);
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 48px 0;
+    }
+
+    /* Contact */
+    .contact-link {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(124, 92, 252, 0.3);
+      transition: border-color 0.2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .logo { font-size: 2rem; }
+      .wrapper { padding: 40px 16px 80px; }
+      .tab-btn { font-size: 0.8rem; padding: 8px 12px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="logo">T<span>·</span>A<span>·</span>C<span>·</span>T</div>
+    <div class="tagline">Legal Information</div>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('fr')">Français</button>
+      <button class="lang-btn" onclick="setLang('en')">English</button>
+      <button class="lang-btn" onclick="setLang('es')">Español</button>
+      <button class="lang-btn" onclick="setLang('pt')">Português</button>
+      <button class="lang-btn" onclick="setLang('it')">Italiano</button>
+    </div>
+  </header>
+
+  <!-- TAB SWITCHER -->
+  <div class="tab-switcher">
+    <button class="tab-btn active" onclick="setTab('privacy')" id="tab-privacy" data-fr="Politique de confidentialité" data-en="Privacy Policy" data-es="Política de privacidad" data-pt="Política de privacidade" data-it="Informativa sulla privacy">Politique de confidentialité</button>
+    <button class="tab-btn" onclick="setTab('terms')" id="tab-terms" data-fr="Conditions d'utilisation" data-en="Terms of Service" data-es="Términos de uso" data-pt="Termos de uso" data-it="Termini di utilizzo">Conditions d'utilisation</button>
+  </div>
+
+  <!-- ===== PRIVACY POLICY ===== -->
+  <div id="privacy" class="content-section active">
+
+    <!-- FRANÇAIS -->
+    <div class="lang-content" data-lang="fr">
+      <p class="update-date">Dernière mise à jour : 21 mars 2026</p>
+      <div class="intro">L'application TACT accorde une importance fondamentale à la protection de la vie privée de ses utilisateurs. Cette politique explique quelles informations sont collectées et comment elles sont utilisées. TACT est conçu pour fonctionner avec un minimum de données.</div>
+
+      <div class="ai-badge">⚡ IA</div>
+      <div class="highlight-box"><p>TACT utilise GPT-4o, un modèle d'intelligence artificielle développé par OpenAI, pour générer les reformulations de messages. Vos messages sont transmis à OpenAI de façon temporaire pour ce traitement et ne sont pas conservés après génération de la réponse.</p></div>
+
+      <h2 data-num="01">Données personnelles</h2>
+      <p>TACT ne collecte, ne stocke et ne partage aucune donnée personnelle identifiable. Plus précisément :</p>
+      <ul>
+        <li>Aucun nom, prénom, adresse courriel ou numéro de téléphone n'est collecté</li>
+        <li>Aucun compte utilisateur n'est requis</li>
+        <li>Les messages saisis ne sont pas stockés sur nos serveurs après traitement</li>
+        <li>Aucun texte rédigé ou reformulé n'est enregistré dans une base de données</li>
+      </ul>
+
+      <h2 data-num="02">Traitement des messages par l'IA</h2>
+      <p>Lorsque vous soumettez un message, celui-ci est transmis temporairement à OpenAI (San Francisco, CA, États-Unis) via leur API pour générer une reformulation. Ce traitement est soumis à la <a href="https://openai.com/privacy" class="contact-link" target="_blank">politique de confidentialité d'OpenAI</a>. OpenAI ne conserve pas les messages à des fins d'entraînement via l'API.</p>
+
+      <h2 data-num="03">Données d'utilisation anonymes</h2>
+      <p>TACT peut collecter des données d'utilisation anonymes et agrégées incluant :</p>
+      <ul>
+        <li>La sphère sélectionnée (personnelle, amoureuse ou professionnelle)</li>
+        <li>Le ton sélectionné (doux, neutre ou ferme)</li>
+        <li>Le moment de communication (avant, pendant ou après)</li>
+        <li>Une note d'évaluation volontaire (système d'étoiles)</li>
+      </ul>
+      <p>Ces données ne permettent pas d'identifier un utilisateur et ne contiennent aucun contenu textuel. Elles sont utilisées pour améliorer le service.</p>
+
+      <h2 data-num="04">Services techniques tiers</h2>
+      <p>L'application utilise les services suivants :</p>
+      <ul>
+        <li><strong style="color:var(--text)">OpenAI</strong> — traitement temporaire des messages pour la génération de reformulations</li>
+        <li><strong style="color:var(--text)">Google Firebase</strong> — infrastructure serveur, sécurité (App Check) et stockage anonyme des évaluations</li>
+        <li><strong style="color:var(--text)">Google Play Billing</strong> — gestion des achats intégrés et abonnements</li>
+        <li><strong style="color:var(--text)">Google Cloud Run</strong> — hébergement du serveur de traitement</li>
+      </ul>
+
+      <h2 data-num="05">Données de facturation</h2>
+      <p>Les achats intégrés sont entièrement gérés par Google Play. TACT n'a pas accès à vos informations de paiement. La gestion des données de facturation est soumise à la politique de confidentialité de Google.</p>
+
+      <h2 data-num="06">Sécurité</h2>
+      <p>Les communications entre l'application et nos serveurs sont protégées par chiffrement en transit (HTTPS). TACT utilise Firebase App Check pour protéger son infrastructure contre les accès non autorisés.</p>
+
+      <h2 data-num="07">Historique local</h2>
+      <p>L'historique de vos messages reformulés est stocké uniquement sur votre appareil. Il n'est jamais synchronisé avec nos serveurs ni partagé avec des tiers.</p>
+
+      <h2 data-num="08">Suppression des données</h2>
+      <p>TACT ne crée pas de compte utilisateur et ne conserve pas de données personnelles identifiables. Vous pouvez supprimer l'historique local depuis les paramètres de l'application à tout moment.</p>
+
+      <h2 data-num="09">Enfants</h2>
+      <p>TACT ne s'adresse pas aux enfants de moins de 13 ans. L'application ne collecte sciemment aucune donnée concernant des mineurs.</p>
+
+      <h2 data-num="10">Modifications</h2>
+      <p>Cette politique peut être mise à jour. Toute modification sera publiée sur cette page avec une date révisée.</p>
+
+      <h2 data-num="11">Contact</h2>
+      <p>Pour toute question : <a href="mailto:support@app-tact.com" class="contact-link">support@app-tact.com</a></p>
+    </div>
+
+    <!-- ENGLISH -->
+    <div class="lang-content" data-lang="en" style="display:none">
+      <p class="update-date">Last updated: March 21, 2026</p>
+      <div class="intro">The TACT application is fundamentally committed to protecting user privacy. This policy explains what information is collected and how it is used. TACT is designed to operate with minimal data collection.</div>
+
+      <div class="ai-badge">⚡ AI</div>
+      <div class="highlight-box"><p>TACT uses GPT-4o, an artificial intelligence model developed by OpenAI, to generate message reformulations. Your messages are temporarily transmitted to OpenAI for this processing and are not retained after the response is generated.</p></div>
+
+      <h2 data-num="01">Personal Data</h2>
+      <p>TACT does not collect, store, or share any personally identifiable information. Specifically:</p>
+      <ul>
+        <li>No name, email address, or phone number is collected</li>
+        <li>No user account is required to use the app</li>
+        <li>Messages entered are not stored on our servers after processing</li>
+        <li>No written or reformulated text is recorded in any database</li>
+      </ul>
+
+      <h2 data-num="02">AI Message Processing</h2>
+      <p>When you submit a message, it is temporarily transmitted to OpenAI (San Francisco, CA, USA) via their API to generate a reformulation. This processing is subject to <a href="https://openai.com/privacy" class="contact-link" target="_blank">OpenAI's privacy policy</a>. OpenAI does not retain API messages for training purposes.</p>
+
+      <h2 data-num="03">Anonymous Usage Data</h2>
+      <p>TACT may collect anonymous, aggregated usage data including:</p>
+      <ul>
+        <li>Selected sphere (personal, romantic, or professional)</li>
+        <li>Selected tone (soft, neutral, or firm)</li>
+        <li>Communication moment (before, during, or after)</li>
+        <li>Voluntary rating (star system)</li>
+      </ul>
+      <p>This data cannot identify any user and contains no textual content. It is used to improve the service.</p>
+
+      <h2 data-num="04">Third-Party Technical Services</h2>
+      <ul>
+        <li><strong style="color:var(--text)">OpenAI</strong> — temporary message processing for reformulation generation</li>
+        <li><strong style="color:var(--text)">Google Firebase</strong> — server infrastructure, security (App Check), and anonymous rating storage</li>
+        <li><strong style="color:var(--text)">Google Play Billing</strong> — in-app purchases and subscription management</li>
+        <li><strong style="color:var(--text)">Google Cloud Run</strong> — processing server hosting</li>
+      </ul>
+
+      <h2 data-num="05">Billing Data</h2>
+      <p>In-app purchases are entirely managed by Google Play. TACT does not have access to your payment information. Billing data is governed by Google's privacy policy.</p>
+
+      <h2 data-num="06">Security</h2>
+      <p>All communications between the app and our servers are encrypted in transit (HTTPS). TACT uses Firebase App Check to protect its infrastructure against unauthorized access.</p>
+
+      <h2 data-num="07">Local History</h2>
+      <p>Your reformulated message history is stored only on your device. It is never synced with our servers or shared with third parties.</p>
+
+      <h2 data-num="08">Data Deletion</h2>
+      <p>TACT does not create user accounts and does not retain personally identifiable data. You can delete your local history from the app settings at any time.</p>
+
+      <h2 data-num="09">Children</h2>
+      <p>TACT is not directed at children under 13. The app does not knowingly collect any data from minors.</p>
+
+      <h2 data-num="10">Changes</h2>
+      <p>This policy may be updated. Any changes will be published on this page with a revised date.</p>
+
+      <h2 data-num="11">Contact</h2>
+      <p>For any questions: <a href="mailto:support@app-tact.com" class="contact-link">support@app-tact.com</a></p>
+    </div>
+
+    <!-- ESPAÑOL -->
+    <div class="lang-content" data-lang="es" style="display:none">
+      <p class="update-date">Última actualización: 21 de marzo de 2026</p>
+      <div class="intro">La aplicación TACT otorga una importancia fundamental a la protección de la privacidad de sus usuarios. Esta política explica qué información se recopila y cómo se utiliza. TACT está diseñado para funcionar con un mínimo de datos.</div>
+
+      <div class="ai-badge">⚡ IA</div>
+      <div class="highlight-box"><p>TACT utiliza GPT-4o, un modelo de inteligencia artificial desarrollado por OpenAI, para generar reformulaciones de mensajes. Sus mensajes se transmiten temporalmente a OpenAI para este procesamiento y no se conservan tras la generación de la respuesta.</p></div>
+
+      <h2 data-num="01">Datos personales</h2>
+      <ul>
+        <li>No se recopila ningún nombre, dirección de correo electrónico ni número de teléfono</li>
+        <li>No se requiere cuenta de usuario</li>
+        <li>Los mensajes introducidos no se almacenan en nuestros servidores tras el procesamiento</li>
+        <li>Ningún texto redactado o reformulado queda registrado en base de datos alguna</li>
+      </ul>
+
+      <h2 data-num="02">Procesamiento de mensajes por IA</h2>
+      <p>Al enviar un mensaje, este se transmite temporalmente a OpenAI (San Francisco, CA, EE. UU.) a través de su API para generar una reformulación, sujeto a la <a href="https://openai.com/privacy" class="contact-link" target="_blank">política de privacidad de OpenAI</a>.</p>
+
+      <h2 data-num="03">Datos de uso anónimos</h2>
+      <ul>
+        <li>Esfera seleccionada (personal, amorosa o profesional)</li>
+        <li>Tono seleccionado (suave, neutro o firme)</li>
+        <li>Momento de comunicación (antes, durante o después)</li>
+        <li>Valoración voluntaria (sistema de estrellas)</li>
+      </ul>
+
+      <h2 data-num="04">Servicios técnicos de terceros</h2>
+      <ul>
+        <li><strong style="color:var(--text)">OpenAI</strong> — procesamiento temporal de mensajes</li>
+        <li><strong style="color:var(--text)">Google Firebase</strong> — infraestructura, seguridad y almacenamiento anónimo de valoraciones</li>
+        <li><strong style="color:var(--text)">Google Play Billing</strong> — gestión de compras y suscripciones</li>
+        <li><strong style="color:var(--text)">Google Cloud Run</strong> — alojamiento del servidor</li>
+      </ul>
+
+      <h2 data-num="05">Datos de facturación</h2>
+      <p>Las compras dentro de la aplicación son gestionadas íntegramente por Google Play. TACT no tiene acceso a sus datos de pago.</p>
+
+      <h2 data-num="06">Seguridad</h2>
+      <p>Las comunicaciones entre la aplicación y nuestros servidores están cifradas en tránsito (HTTPS). TACT utiliza Firebase App Check para proteger su infraestructura.</p>
+
+      <h2 data-num="07">Historial local</h2>
+      <p>El historial de mensajes reformulados se almacena únicamente en su dispositivo. Nunca se sincroniza con nuestros servidores.</p>
+
+      <h2 data-num="08">Eliminación de datos</h2>
+      <p>TACT no crea cuentas de usuario. Puede eliminar el historial local desde los ajustes de la aplicación en cualquier momento.</p>
+
+      <h2 data-num="09">Menores</h2>
+      <p>TACT no está dirigido a menores de 13 años. La aplicación no recopila conscientemente datos de menores.</p>
+
+      <h2 data-num="10">Modificaciones</h2>
+      <p>Esta política puede actualizarse. Cualquier cambio se publicará en esta página con una fecha revisada.</p>
+
+      <h2 data-num="11">Contacto</h2>
+      <p><a href="mailto:support@app-tact.com" class="contact-link">support@app-tact.com</a></p>
+    </div>
+
+    <!-- PORTUGUÊS -->
+    <div class="lang-content" data-lang="pt" style="display:none">
+      <p class="update-date">Última atualização: 21 de março de 2026</p>
+      <div class="intro">O aplicativo TACT atribui importância fundamental à proteção da privacidade dos seus usuários. Esta política explica quais informações são coletadas e como são utilizadas.</div>
+
+      <div class="ai-badge">⚡ IA</div>
+      <div class="highlight-box"><p>O TACT utiliza o GPT-4o, um modelo de inteligência artificial desenvolvido pela OpenAI, para gerar reformulações de mensagens. Suas mensagens são transmitidas temporariamente à OpenAI para este processamento e não são retidas após a geração da resposta.</p></div>
+
+      <h2 data-num="01">Dados pessoais</h2>
+      <ul>
+        <li>Nenhum nome, endereço de e-mail ou número de telefone é coletado</li>
+        <li>Nenhuma conta de usuário é necessária</li>
+        <li>As mensagens inseridas não são armazenadas nos nossos servidores após o processamento</li>
+        <li>Nenhum texto redigido ou reformulado é registrado em banco de dados</li>
+      </ul>
+
+      <h2 data-num="02">Processamento de mensagens pela IA</h2>
+      <p>Ao enviar uma mensagem, ela é transmitida temporariamente à OpenAI (San Francisco, CA, EUA) via API para gerar uma reformulação, sujeito à <a href="https://openai.com/privacy" class="contact-link" target="_blank">política de privacidade da OpenAI</a>.</p>
+
+      <h2 data-num="03">Dados de uso anônimos</h2>
+      <ul>
+        <li>Esfera selecionada (pessoal, amorosa ou profissional)</li>
+        <li>Tom selecionado (suave, neutro ou firme)</li>
+        <li>Momento de comunicação (antes, durante ou depois)</li>
+        <li>Avaliação voluntária (sistema de estrelas)</li>
+      </ul>
+
+      <h2 data-num="04">Serviços técnicos de terceiros</h2>
+      <ul>
+        <li><strong style="color:var(--text)">OpenAI</strong> — processamento temporário de mensagens</li>
+        <li><strong style="color:var(--text)">Google Firebase</strong> — infraestrutura, segurança e armazenamento anônimo de avaliações</li>
+        <li><strong style="color:var(--text)">Google Play Billing</strong> — gestão de compras e assinaturas</li>
+        <li><strong style="color:var(--text)">Google Cloud Run</strong> — hospedagem do servidor</li>
+      </ul>
+
+      <h2 data-num="05">Dados de faturamento</h2>
+      <p>As compras no aplicativo são gerenciadas inteiramente pelo Google Play. O TACT não tem acesso às suas informações de pagamento.</p>
+
+      <h2 data-num="06">Segurança</h2>
+      <p>As comunicações entre o aplicativo e nossos servidores são criptografadas em trânsito (HTTPS). O TACT usa o Firebase App Check para proteger sua infraestrutura.</p>
+
+      <h2 data-num="07">Histórico local</h2>
+      <p>O histórico de mensagens reformuladas é armazenado apenas no seu dispositivo. Nunca é sincronizado com nossos servidores.</p>
+
+      <h2 data-num="08">Exclusão de dados</h2>
+      <p>O TACT não cria contas de usuário. Você pode excluir o histórico local nas configurações do aplicativo a qualquer momento.</p>
+
+      <h2 data-num="09">Crianças</h2>
+      <p>O TACT não é direcionado a crianças menores de 13 anos. O aplicativo não coleta conscientemente dados de menores.</p>
+
+      <h2 data-num="10">Alterações</h2>
+      <p>Esta política pode ser atualizada. Quaisquer alterações serão publicadas nesta página com uma data revisada.</p>
+
+      <h2 data-num="11">Contato</h2>
+      <p><a href="mailto:support@app-tact.com" class="contact-link">support@app-tact.com</a></p>
+    </div>
+
+    <!-- ITALIANO -->
+    <div class="lang-content" data-lang="it" style="display:none">
+      <p class="update-date">Ultimo aggiornamento: 21 marzo 2026</p>
+      <div class="intro">L'applicazione TACT attribuisce un'importanza fondamentale alla protezione della privacy dei suoi utenti. Questa politica spiega quali informazioni vengono raccolte e come vengono utilizzate.</div>
+
+      <div class="ai-badge">⚡ IA</div>
+      <div class="highlight-box"><p>TACT utilizza GPT-4o, un modello di intelligenza artificiale sviluppato da OpenAI, per generare riformulazioni dei messaggi. I tuoi messaggi vengono trasmessi temporaneamente a OpenAI per questa elaborazione e non vengono conservati dopo la generazione della risposta.</p></div>
+
+      <h2 data-num="01">Dati personali</h2>
+      <ul>
+        <li>Nessun nome, indirizzo email o numero di telefono viene raccolto</li>
+        <li>Non è richiesto alcun account utente</li>
+        <li>I messaggi inseriti non vengono memorizzati sui nostri server dopo l'elaborazione</li>
+        <li>Nessun testo redatto o riformulato viene registrato in alcun database</li>
+      </ul>
+
+      <h2 data-num="02">Elaborazione dei messaggi tramite IA</h2>
+      <p>Quando invii un messaggio, questo viene trasmesso temporaneamente a OpenAI (San Francisco, CA, USA) tramite API per generare una riformulazione, soggetto alla <a href="https://openai.com/privacy" class="contact-link" target="_blank">politica sulla privacy di OpenAI</a>.</p>
+
+      <h2 data-num="03">Dati di utilizzo anonimi</h2>
+      <ul>
+        <li>Sfera selezionata (personale, romantica o professionale)</li>
+        <li>Tono selezionato (dolce, neutro o fermo)</li>
+        <li>Momento della comunicazione (prima, durante o dopo)</li>
+        <li>Valutazione volontaria (sistema a stelle)</li>
+      </ul>
+
+      <h2 data-num="04">Servizi tecnici di terze parti</h2>
+      <ul>
+        <li><strong style="color:var(--text)">OpenAI</strong> — elaborazione temporanea dei messaggi</li>
+        <li><strong style="color:var(--text)">Google Firebase</strong> — infrastruttura, sicurezza e archiviazione anonima delle valutazioni</li>
+        <li><strong style="color:var(--text)">Google Play Billing</strong> — gestione degli acquisti e abbonamenti</li>
+        <li><strong style="color:var(--text)">Google Cloud Run</strong> — hosting del server</li>
+      </ul>
+
+      <h2 data-num="05">Dati di fatturazione</h2>
+      <p>Gli acquisti in-app sono gestiti interamente da Google Play. TACT non ha accesso alle tue informazioni di pagamento.</p>
+
+      <h2 data-num="06">Sicurezza</h2>
+      <p>Le comunicazioni tra l'app e i nostri server sono crittografate in transito (HTTPS). TACT usa Firebase App Check per proteggere la sua infrastruttura.</p>
+
+      <h2 data-num="07">Cronologia locale</h2>
+      <p>La cronologia dei messaggi riformulati è memorizzata solo sul tuo dispositivo. Non viene mai sincronizzata con i nostri server.</p>
+
+      <h2 data-num="08">Eliminazione dei dati</h2>
+      <p>TACT non crea account utente. Puoi eliminare la cronologia locale dalle impostazioni dell'app in qualsiasi momento.</p>
+
+      <h2 data-num="09">Bambini</h2>
+      <p>TACT non è destinato a bambini di età inferiore ai 13 anni. L'app non raccoglie consapevolmente dati relativi a minori.</p>
+
+      <h2 data-num="10">Modifiche</h2>
+      <p>Questa politica può essere aggiornata. Eventuali modifiche saranno pubblicate su questa pagina con una data rivista.</p>
+
+      <h2 data-num="11">Contatto</h2>
+      <p><a href="mailto:support@app-tact.com" class="contact-link">support@app-tact.com</a></p>
+    </div>
+  </div>
+
+  <!-- ===== TERMS OF SERVICE ===== -->
+  <div id="terms" class="content-section">
+
+    <!-- FRANÇAIS -->
+    <div class="lang-content" data-lang="fr">
+      <p class="update-date">Dernière mise à jour : 21 mars 2026</p>
+      <div class="intro">En utilisant l'application TACT, vous acceptez les présentes conditions d'utilisation. Veuillez les lire attentivement avant d'utiliser le service.</div>
+
+      <h2 data-num="01">Description du service</h2>
+      <p>TACT est une application mobile d'assistance à la communication interpersonnelle. Elle utilise l'intelligence artificielle (GPT-4o d'OpenAI) pour proposer des reformulations de messages selon le contexte choisi par l'utilisateur.</p>
+
+      <h2 data-num="02">Utilisation acceptable</h2>
+      <p>En utilisant TACT, vous vous engagez à ne pas soumettre de messages contenant :</p>
+      <ul>
+        <li>Des menaces, du harcèlement ou des contenus violents</li>
+        <li>Des discours haineux ou discriminatoires</li>
+        <li>Des contenus à caractère sexuel explicite</li>
+        <li>Des contenus encourageant l'automutilation ou le suicide</li>
+        <li>Des informations visant à commettre des actes illégaux</li>
+        <li>Tout contenu portant atteinte aux droits de tiers</li>
+      </ul>
+
+      <h2 data-num="03">Propriété intellectuelle</h2>
+      <p>L'application TACT, son interface, ses algorithmes et son contenu sont protégés par les droits de propriété intellectuelle applicables. Toute reproduction, modification ou distribution non autorisée est interdite.</p>
+      <p>Les reformulations générées par l'IA sont fournies à titre d'assistance. L'utilisateur reste responsable du contenu qu'il choisit d'envoyer.</p>
+
+      <h2 data-num="04">Achats et abonnements</h2>
+      <p>TACT propose des crédits et des plans d'abonnement (Essential, Premium, Lifetime) achetés via Google Play Billing. Les achats sont définitifs sauf disposition contraire de la politique de remboursement de Google Play. Les crédits achetés séparément sont additifs et ne sont pas perdus lors d'un changement de plan.</p>
+
+      <h2 data-num="05">Limitation de responsabilité</h2>
+      <p>TACT est un outil d'assistance à la communication. Les reformulations générées sont des suggestions et ne constituent pas des conseils professionnels (juridiques, médicaux, psychologiques). TACT décline toute responsabilité quant aux conséquences de l'utilisation des reformulations proposées dans vos communications réelles.</p>
+
+      <h2 data-num="06">Disponibilité du service</h2>
+      <p>TACT s'efforce d'assurer la disponibilité de son service mais ne garantit pas un accès ininterrompu. Des interruptions peuvent survenir pour maintenance ou pour des raisons indépendantes de notre volonté.</p>
+
+      <h2 data-num="07">Modifications des conditions</h2>
+      <p>Ces conditions peuvent être mises à jour. La poursuite de l'utilisation de l'application après modification vaut acceptation des nouvelles conditions.</p>
+
+      <h2 data-num="08">Droit applicable</h2>
+      <p>Ces conditions sont régies par les lois en vigueur au Québec, Canada.</p>
+
+      <h2 data-num="09">Contact</h2>
+      <p>Pour toute question : <a href="mailto:support@app-tact.com" class="contact-link">support@app-tact.com</a></p>
+    </div>
+
+    <!-- ENGLISH -->
+    <div class="lang-content" data-lang="en" style="display:none">
+      <p class="update-date">Last updated: March 21, 2026</p>
+      <div class="intro">By using the TACT application, you agree to these Terms of Service. Please read them carefully before using the service.</div>
+
+      <h2 data-num="01">Service Description</h2>
+      <p>TACT is a mobile application designed to assist with interpersonal communication. It uses artificial intelligence (OpenAI's GPT-4o) to suggest message reformulations based on the context chosen by the user.</p>
+
+      <h2 data-num="02">Acceptable Use</h2>
+      <p>By using TACT, you agree not to submit messages containing:</p>
+      <ul>
+        <li>Threats, harassment, or violent content</li>
+        <li>Hate speech or discriminatory content</li>
+        <li>Explicit sexual content</li>
+        <li>Content encouraging self-harm or suicide</li>
+        <li>Information intended to facilitate illegal acts</li>
+        <li>Any content infringing on third-party rights</li>
+      </ul>
+
+      <h2 data-num="03">Intellectual Property</h2>
+      <p>The TACT application, its interface, algorithms, and content are protected by applicable intellectual property rights. Any unauthorized reproduction, modification, or distribution is prohibited.</p>
+      <p>AI-generated reformulations are provided as assistance. The user remains responsible for the content they choose to send.</p>
+
+      <h2 data-num="04">Purchases and Subscriptions</h2>
+      <p>TACT offers credits and subscription plans (Essential, Premium, Lifetime) purchased through Google Play Billing. Purchases are final unless otherwise provided by Google Play's refund policy. Separately purchased credits are additive and are not lost when changing plans.</p>
+
+      <h2 data-num="05">Limitation of Liability</h2>
+      <p>TACT is a communication assistance tool. Generated reformulations are suggestions and do not constitute professional advice (legal, medical, psychological). TACT disclaims any liability for the consequences of using suggested reformulations in your actual communications.</p>
+
+      <h2 data-num="06">Service Availability</h2>
+      <p>TACT strives to ensure service availability but does not guarantee uninterrupted access. Interruptions may occur for maintenance or reasons beyond our control.</p>
+
+      <h2 data-num="07">Changes to Terms</h2>
+      <p>These terms may be updated. Continued use of the application after changes constitutes acceptance of the new terms.</p>
+
+      <h2 data-num="08">Governing Law</h2>
+      <p>These terms are governed by the laws in force in Quebec, Canada.</p>
+
+      <h2 data-num="09">Contact</h2>
+      <p><a href="mailto:support@app-tact.com" class="contact-link">support@app-tact.com</a></p>
+    </div>
+
+    <!-- ESPAÑOL -->
+    <div class="lang-content" data-lang="es" style="display:none">
+      <p class="update-date">Última actualización: 21 de marzo de 2026</p>
+      <div class="intro">Al utilizar la aplicación TACT, usted acepta estos Términos de uso. Léalos atentamente antes de utilizar el servicio.</div>
+
+      <h2 data-num="01">Descripción del servicio</h2>
+      <p>TACT es una aplicación móvil de asistencia a la comunicación interpersonal que utiliza inteligencia artificial (GPT-4o de OpenAI) para sugerir reformulaciones de mensajes.</p>
+
+      <h2 data-num="02">Uso aceptable</h2>
+      <ul>
+        <li>Amenazas, acoso o contenido violento</li>
+        <li>Discurso de odio o contenido discriminatorio</li>
+        <li>Contenido sexual explícito</li>
+        <li>Contenido que fomente la autolesión o el suicidio</li>
+        <li>Información destinada a facilitar actos ilegales</li>
+      </ul>
+
+      <h2 data-num="03">Propiedad intelectual</h2>
+      <p>La aplicación TACT y su contenido están protegidos por los derechos de propiedad intelectual aplicables. El usuario es responsable del contenido que elija enviar.</p>
+
+      <h2 data-num="04">Compras y suscripciones</h2>
+      <p>TACT ofrece créditos y planes de suscripción a través de Google Play Billing. Los créditos comprados por separado son acumulativos y no se pierden al cambiar de plan.</p>
+
+      <h2 data-num="05">Limitación de responsabilidad</h2>
+      <p>Las reformulaciones generadas son sugerencias y no constituyen asesoramiento profesional. TACT no se responsabiliza de las consecuencias del uso de las reformulaciones en sus comunicaciones reales.</p>
+
+      <h2 data-num="06">Legislación aplicable</h2>
+      <p>Estas condiciones se rigen por las leyes vigentes en Quebec, Canadá.</p>
+
+      <h2 data-num="07">Contacto</h2>
+      <p><a href="mailto:support@app-tact.com" class="contact-link">support@app-tact.com</a></p>
+    </div>
+
+    <!-- PORTUGUÊS -->
+    <div class="lang-content" data-lang="pt" style="display:none">
+      <p class="update-date">Última atualização: 21 de março de 2026</p>
+      <div class="intro">Ao usar o aplicativo TACT, você concorda com estes Termos de uso. Leia-os atentamente antes de usar o serviço.</div>
+
+      <h2 data-num="01">Descrição do serviço</h2>
+      <p>O TACT é um aplicativo móvel de assistência à comunicação interpessoal que usa inteligência artificial (GPT-4o da OpenAI) para sugerir reformulações de mensagens.</p>
+
+      <h2 data-num="02">Uso aceitável</h2>
+      <ul>
+        <li>Ameaças, assédio ou conteúdo violento</li>
+        <li>Discurso de ódio ou conteúdo discriminatório</li>
+        <li>Conteúdo sexual explícito</li>
+        <li>Conteúdo que incentive automutilação ou suicídio</li>
+        <li>Informações destinadas a facilitar atos ilegais</li>
+      </ul>
+
+      <h2 data-num="03">Propriedade intelectual</h2>
+      <p>O aplicativo TACT e seu conteúdo são protegidos pelos direitos de propriedade intelectual aplicáveis. O usuário é responsável pelo conteúdo que escolhe enviar.</p>
+
+      <h2 data-num="04">Compras e assinaturas</h2>
+      <p>O TACT oferece créditos e planos de assinatura através do Google Play Billing. Os créditos comprados separadamente são cumulativos e não são perdidos ao mudar de plano.</p>
+
+      <h2 data-num="05">Limitação de responsabilidade</h2>
+      <p>As reformulações geradas são sugestões e não constituem aconselhamento profissional. O TACT não se responsabiliza pelas consequências do uso das reformulações em suas comunicações reais.</p>
+
+      <h2 data-num="06">Lei aplicável</h2>
+      <p>Estes termos são regidos pelas leis em vigor em Quebec, Canadá.</p>
+
+      <h2 data-num="07">Contato</h2>
+      <p><a href="mailto:support@app-tact.com" class="contact-link">support@app-tact.com</a></p>
+    </div>
+
+    <!-- ITALIANO -->
+    <div class="lang-content" data-lang="it" style="display:none">
+      <p class="update-date">Ultimo aggiornamento: 21 marzo 2026</p>
+      <div class="intro">Utilizzando l'applicazione TACT, accetti i presenti Termini di utilizzo. Leggili attentamente prima di utilizzare il servizio.</div>
+
+      <h2 data-num="01">Descrizione del servizio</h2>
+      <p>TACT è un'applicazione mobile di assistenza alla comunicazione interpersonale che utilizza intelligenza artificiale (GPT-4o di OpenAI) per suggerire riformulazioni dei messaggi.</p>
+
+      <h2 data-num="02">Uso accettabile</h2>
+      <ul>
+        <li>Minacce, molestie o contenuti violenti</li>
+        <li>Discorsi d'odio o contenuti discriminatori</li>
+        <li>Contenuti sessuali espliciti</li>
+        <li>Contenuti che incoraggino l'autolesionismo o il suicidio</li>
+        <li>Informazioni volte a facilitare atti illegali</li>
+      </ul>
+
+      <h2 data-num="03">Proprietà intellettuale</h2>
+      <p>L'applicazione TACT e i suoi contenuti sono protetti dai diritti di proprietà intellettuale applicabili. L'utente rimane responsabile del contenuto che sceglie di inviare.</p>
+
+      <h2 data-num="04">Acquisti e abbonamenti</h2>
+      <p>TACT offre crediti e piani di abbonamento tramite Google Play Billing. I crediti acquistati separatamente sono cumulativi e non vengono persi al cambio di piano.</p>
+
+      <h2 data-num="05">Limitazione di responsabilità</h2>
+      <p>Le riformulazioni generate sono suggerimenti e non costituiscono consulenza professionale. TACT declina qualsiasi responsabilità per le conseguenze dell'utilizzo delle riformulazioni nelle comunicazioni reali.</p>
+
+      <h2 data-num="06">Legge applicabile</h2>
+      <p>Questi termini sono regolati dalle leggi in vigore in Quebec, Canada.</p>
+
+      <h2 data-num="07">Contatto</h2>
+      <p><a href="mailto:support@app-tact.com" class="contact-link">support@app-tact.com</a></p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2026 TACT App — <a href="mailto:support@app-tact.com" class="contact-link">support@app-tact.com</a></p>
+  </footer>
+
+</div>
+
+<script>
+  let currentLang = 'fr';
+  let currentTab = 'privacy';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+    document.querySelectorAll('.lang-content').forEach(el => {
+      el.style.display = el.dataset.lang === lang ? 'block' : 'none';
+    });
+    // Update tab labels
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      const label = btn.dataset[lang];
+      if (label) btn.textContent = label;
+    });
+  }
+
+  function setTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`[onclick="setTab('${tab}')"]`).classList.add('active');
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    document.getElementById(tab).classList.add('active');
+  }
+</script>
+</body>
+</html>
