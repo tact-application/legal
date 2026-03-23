@@ -806,7 +806,16 @@
     document.querySelector(`[onclick="setTab('${tab}')"]`).classList.add('active');
     document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
     document.getElementById(tab).classList.add('active');
+    history.replaceState(null, '', '#' + tab);
   }
+  (function () {
+    const hash = window.location.hash.replace('#', '').toLowerCase();
+    if (hash === 'terms' || hash === 'conditions') {
+      setTab('terms');
+    } else {
+      setTab('privacy');
+    }
+  })();
 </script>
 </body>
 </html>
