@@ -825,6 +825,12 @@
     } else {
       setTab('privacy');
     }
+    // Langue choisie par l'adresse : ?lang=en (fr, en, es, pt ou it). Sans paramètre : français.
+    const lang = (new URLSearchParams(window.location.search).get('lang') || '').toLowerCase();
+    if (['fr', 'en', 'es', 'pt', 'it'].includes(lang)) {
+      setLang(lang);
+      document.documentElement.lang = lang;
+    }
   })();
 </script>
 </body>
