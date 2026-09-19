@@ -304,7 +304,7 @@
       <div class="highlight-box"><p>TACT utilise un modèle d'intelligence artificielle développé par OpenAI pour générer les reformulations de messages. Vos messages sont transmis à OpenAI de façon temporaire pour ce traitement, et TACT ne les conserve pas après génération de la réponse.</p></div>
 
       <h2 data-num="01">Données personnelles</h2>
-      <p>TACT ne collecte, ne stocke et ne partage aucune donnée personnelle identifiable. Plus précisément :</p>
+      <p>TACT ne collecte aucune donnée permettant de vous identifier directement et ne stocke pas vos messages. Les journaux techniques de notre hébergeur contiennent toutefois l'adresse IP des requêtes (voir plus bas). Plus précisément :</p>
       <ul>
         <li>Aucun nom, prénom, adresse courriel ou numéro de téléphone n'est collecté</li>
         <li>Aucun compte utilisateur n'est requis</li>
@@ -322,16 +322,17 @@
         <li>Le ton sélectionné (doux, neutre ou ferme)</li>
         <li>Le moment de communication (avant, pendant ou après)</li>
         <li>Le forfait utilisé, la durée de traitement, le volume technique de la requête et un identifiant technique de requête</li>
+        <li>Une note d'évaluation volontaire (système d'étoiles), enregistrée avec la sphère, le ton, le moment et le forfait, sans texte et sans identifiant d'utilisateur</li>
       </ul>
-      <p>Ces données ne permettent pas d'identifier un utilisateur et ne contiennent aucun contenu textuel. Elles sont enregistrées dans les journaux techniques de notre serveur et servent au fonctionnement, à la sécurité et à l'amélioration du service.</p>
+      <p>Ces données ne permettent pas d'identifier un utilisateur et ne contiennent aucun contenu textuel. Les données techniques sont enregistrées dans les journaux de notre serveur, et les évaluations dans une base de données Firebase (Firestore). Elles servent au fonctionnement, à la sécurité et à l'amélioration du service.</p>
 
       <h2 data-num="04">Services techniques tiers</h2>
       <p>L'application utilise les services suivants :</p>
       <ul>
         <li><strong style="color:var(--text)">OpenAI</strong> — traitement temporaire des messages pour la génération de reformulations</li>
-        <li><strong style="color:var(--text)">Google Firebase</strong> — sécurité (App Check) et infrastructure serveur</li>
-        <li><strong style="color:var(--text)">Google Play Billing</strong> — gestion des achats intégrés et abonnements ; notre serveur peut interroger Google Play pour vérifier un achat</li>
-        <li><strong style="color:var(--text)">Google Cloud Run</strong> — hébergement du serveur de traitement</li>
+        <li><strong style="color:var(--text)">Google Firebase</strong> — sécurité (App Check), stockage anonyme des évaluations et infrastructure serveur</li>
+        <li><strong style="color:var(--text)">Google Play Billing</strong> — gestion des achats intégrés et abonnements ; notre serveur peut interroger Google Play pour vérifier un achat et conserver un statut d'achat (produit, statut, préfixe tronqué de l'identifiant d'achat) sans lien avec votre identité</li>
+        <li><strong style="color:var(--text)">Google Cloud Run</strong> — hébergement du serveur de traitement ; l'hébergeur journalise automatiquement l'adresse IP et le type d'application (user-agent) de chaque requête, conservés 30 jours à des fins de sécurité et de fonctionnement</li>
         <li><strong style="color:var(--text)">Reconnaissance vocale de l'appareil</strong> — facultative : la saisie vocale utilise le service de reconnaissance vocale de votre appareil (généralement fourni par Google) ; TACT ne reçoit que le texte obtenu, jamais l'enregistrement audio</li>
       </ul>
 
@@ -345,7 +346,7 @@
       <p>L'historique de vos messages reformulés est stocké uniquement sur votre appareil. Il n'est jamais synchronisé avec nos serveurs ni partagé avec des tiers.</p>
 
       <h2 data-num="08">Suppression des données</h2>
-      <p>TACT ne crée pas de compte utilisateur et ne conserve pas de données personnelles identifiables. Vous pouvez supprimer l'historique local depuis les paramètres de l'application à tout moment.</p>
+      <p>TACT ne crée pas de compte utilisateur. Les journaux techniques de l'hébergeur sont supprimés automatiquement après 30 jours ; les évaluations sont anonymes et ne peuvent pas être rattachées à une personne. Vous pouvez supprimer l'historique local depuis les paramètres de l'application à tout moment.</p>
 
       <h2 data-num="09">Enfants</h2>
       <p>TACT ne s'adresse pas aux enfants de moins de 13 ans. L'application ne collecte sciemment aucune donnée concernant des mineurs.</p>
@@ -366,7 +367,7 @@
       <div class="highlight-box"><p>TACT uses an artificial intelligence model developed by OpenAI to generate message reformulations. Your messages are temporarily transmitted to OpenAI for this processing, and TACT does not retain them after the response is generated.</p></div>
 
       <h2 data-num="01">Personal Data</h2>
-      <p>TACT does not collect, store, or share any personally identifiable information. Specifically:</p>
+      <p>TACT does not collect any data that directly identifies you and does not store your messages. Our hosting provider's technical logs do, however, contain the IP address of requests (see below). Specifically:</p>
       <ul>
         <li>No name, email address, or phone number is collected</li>
         <li>No user account is required to use the app</li>
@@ -384,15 +385,16 @@
         <li>Selected tone (soft, neutral, or firm)</li>
         <li>Communication moment (before, during, or after)</li>
         <li>The plan used, processing time, the technical size of the request, and a technical request identifier</li>
+        <li>A voluntary rating (star system), recorded with the sphere, tone, moment and plan, with no text and no user identifier</li>
       </ul>
-      <p>This data cannot identify any user and contains no textual content. It is recorded in our server's technical logs and used to operate, secure and improve the service.</p>
+      <p>This data cannot identify any user and contains no textual content. Technical data is recorded in our server's logs, and ratings in a Firebase database (Firestore). They are used to operate, secure and improve the service.</p>
 
       <h2 data-num="04">Third-Party Technical Services</h2>
       <ul>
         <li><strong style="color:var(--text)">OpenAI</strong> — temporary message processing for reformulation generation</li>
-        <li><strong style="color:var(--text)">Google Firebase</strong> — security (App Check) and server infrastructure</li>
-        <li><strong style="color:var(--text)">Google Play Billing</strong> — in-app purchases and subscription management; our server may query Google Play to verify a purchase</li>
-        <li><strong style="color:var(--text)">Google Cloud Run</strong> — processing server hosting</li>
+        <li><strong style="color:var(--text)">Google Firebase</strong> — security (App Check), anonymous rating storage and server infrastructure</li>
+        <li><strong style="color:var(--text)">Google Play Billing</strong> — in-app purchases and subscription management; our server may query Google Play to verify a purchase and keep a purchase status record (product, status, truncated prefix of the purchase identifier) not linked to your identity</li>
+        <li><strong style="color:var(--text)">Google Cloud Run</strong> — processing server hosting; the host automatically logs the IP address and app type (user agent) of each request, kept for 30 days for security and operation</li>
         <li><strong style="color:var(--text)">Your device's speech recognition</strong> — optional: voice input uses your device's speech recognition service (usually provided by Google); TACT only receives the resulting text, never the audio recording</li>
       </ul>
 
@@ -406,7 +408,7 @@
       <p>Your reformulated message history is stored only on your device. It is never synced with our servers or shared with third parties.</p>
 
       <h2 data-num="08">Data Deletion</h2>
-      <p>TACT does not create user accounts and does not retain personally identifiable data. You can delete your local history from the app settings at any time.</p>
+      <p>TACT does not create user accounts. The hosting provider's technical logs are deleted automatically after 30 days; ratings are anonymous and cannot be linked to a person. You can delete your local history from the app settings at any time.</p>
 
       <h2 data-num="09">Children</h2>
       <p>TACT is not directed at children under 13. The app does not knowingly collect any data from minors.</p>
@@ -443,14 +445,15 @@
         <li>Tono seleccionado (suave, neutro o firme)</li>
         <li>Momento de comunicación (antes, durante o después)</li>
         <li>El plan utilizado, el tiempo de procesamiento, el tamaño técnico de la solicitud y un identificador técnico de solicitud</li>
+        <li>Una valoración voluntaria (sistema de estrellas), registrada con la esfera, el tono, el momento y el plan, sin texto y sin identificador de usuario</li>
       </ul>
 
       <h2 data-num="04">Servicios técnicos de terceros</h2>
       <ul>
         <li><strong style="color:var(--text)">OpenAI</strong> — procesamiento temporal de mensajes</li>
-        <li><strong style="color:var(--text)">Google Firebase</strong> — seguridad (App Check) e infraestructura del servidor</li>
-        <li><strong style="color:var(--text)">Google Play Billing</strong> — gestión de compras y suscripciones; nuestro servidor puede consultar Google Play para verificar una compra</li>
-        <li><strong style="color:var(--text)">Google Cloud Run</strong> — alojamiento del servidor</li>
+        <li><strong style="color:var(--text)">Google Firebase</strong> — seguridad (App Check), almacenamiento anónimo de valoraciones e infraestructura del servidor</li>
+        <li><strong style="color:var(--text)">Google Play Billing</strong> — gestión de compras y suscripciones; nuestro servidor puede consultar Google Play para verificar una compra y conservar un registro del estado de la compra (producto, estado, prefijo truncado del identificador de compra) sin relación con su identidad</li>
+        <li><strong style="color:var(--text)">Google Cloud Run</strong> — alojamiento del servidor; el proveedor registra automáticamente la dirección IP y el tipo de aplicación (user-agent) de cada solicitud, conservados 30 días por seguridad y funcionamiento</li>
         <li><strong style="color:var(--text)">Reconocimiento de voz del dispositivo</strong> — opcional: la entrada de voz usa el servicio de reconocimiento de voz de su dispositivo (normalmente proporcionado por Google); TACT solo recibe el texto resultante, nunca la grabación de audio</li>
       </ul>
 
@@ -464,7 +467,7 @@
       <p>El historial de mensajes reformulados se almacena únicamente en su dispositivo. Nunca se sincroniza con nuestros servidores.</p>
 
       <h2 data-num="08">Eliminación de datos</h2>
-      <p>TACT no crea cuentas de usuario. Puede eliminar el historial local desde los ajustes de la aplicación en cualquier momento.</p>
+      <p>TACT no crea cuentas de usuario. Los registros técnicos del proveedor de alojamiento se eliminan automáticamente a los 30 días; las valoraciones son anónimas y no pueden vincularse a una persona. Puede eliminar el historial local desde los ajustes de la aplicación en cualquier momento.</p>
 
       <h2 data-num="09">Menores</h2>
       <p>TACT no está dirigido a menores de 13 años. La aplicación no recopila conscientemente datos de menores.</p>
@@ -501,14 +504,15 @@
         <li>Tom selecionado (suave, neutro ou firme)</li>
         <li>Momento de comunicação (antes, durante ou depois)</li>
         <li>O plano utilizado, o tempo de processamento, o tamanho técnico da solicitação e um identificador técnico de solicitação</li>
+        <li>Uma avaliação voluntária (sistema de estrelas), registrada com a esfera, o tom, o momento e o plano, sem texto e sem identificador de usuário</li>
       </ul>
 
       <h2 data-num="04">Serviços técnicos de terceiros</h2>
       <ul>
         <li><strong style="color:var(--text)">OpenAI</strong> — processamento temporário de mensagens</li>
-        <li><strong style="color:var(--text)">Google Firebase</strong> — segurança (App Check) e infraestrutura do servidor</li>
-        <li><strong style="color:var(--text)">Google Play Billing</strong> — gestão de compras e assinaturas; nosso servidor pode consultar o Google Play para verificar uma compra</li>
-        <li><strong style="color:var(--text)">Google Cloud Run</strong> — hospedagem do servidor</li>
+        <li><strong style="color:var(--text)">Google Firebase</strong> — segurança (App Check), armazenamento anônimo de avaliações e infraestrutura do servidor</li>
+        <li><strong style="color:var(--text)">Google Play Billing</strong> — gestão de compras e assinaturas; nosso servidor pode consultar o Google Play para verificar uma compra e manter um registro do status da compra (produto, status, prefixo truncado do identificador da compra) sem relação com a sua identidade</li>
+        <li><strong style="color:var(--text)">Google Cloud Run</strong> — hospedagem do servidor; o provedor registra automaticamente o endereço IP e o tipo de aplicativo (user-agent) de cada solicitação, mantidos por 30 dias por segurança e funcionamento</li>
         <li><strong style="color:var(--text)">Reconhecimento de voz do dispositivo</strong> — opcional: a entrada por voz usa o serviço de reconhecimento de voz do seu dispositivo (normalmente fornecido pelo Google); o TACT recebe apenas o texto resultante, nunca a gravação de áudio</li>
       </ul>
 
@@ -522,7 +526,7 @@
       <p>O histórico de mensagens reformuladas é armazenado apenas no seu dispositivo. Nunca é sincronizado com nossos servidores.</p>
 
       <h2 data-num="08">Exclusão de dados</h2>
-      <p>O TACT não cria contas de usuário. Você pode excluir o histórico local nas configurações do aplicativo a qualquer momento.</p>
+      <p>O TACT não cria contas de usuário. Os registros técnicos do provedor de hospedagem são excluídos automaticamente após 30 dias; as avaliações são anônimas e não podem ser vinculadas a uma pessoa. Você pode excluir o histórico local nas configurações do aplicativo a qualquer momento.</p>
 
       <h2 data-num="09">Crianças</h2>
       <p>O TACT não é direcionado a crianças menores de 13 anos. O aplicativo não coleta conscientemente dados de menores.</p>
@@ -559,14 +563,15 @@
         <li>Tono selezionato (dolce, neutro o fermo)</li>
         <li>Momento della comunicazione (prima, durante o dopo)</li>
         <li>Il piano utilizzato, il tempo di elaborazione, la dimensione tecnica della richiesta e un identificativo tecnico della richiesta</li>
+        <li>Una valutazione volontaria (sistema a stelle), registrata con sfera, tono, momento e piano, senza testo e senza identificativo utente</li>
       </ul>
 
       <h2 data-num="04">Servizi tecnici di terze parti</h2>
       <ul>
         <li><strong style="color:var(--text)">OpenAI</strong> — elaborazione temporanea dei messaggi</li>
-        <li><strong style="color:var(--text)">Google Firebase</strong> — sicurezza (App Check) e infrastruttura del server</li>
-        <li><strong style="color:var(--text)">Google Play Billing</strong> — gestione degli acquisti e abbonamenti; il nostro server può interrogare Google Play per verificare un acquisto</li>
-        <li><strong style="color:var(--text)">Google Cloud Run</strong> — hosting del server</li>
+        <li><strong style="color:var(--text)">Google Firebase</strong> — sicurezza (App Check), archiviazione anonima delle valutazioni e infrastruttura del server</li>
+        <li><strong style="color:var(--text)">Google Play Billing</strong> — gestione degli acquisti e abbonamenti; il nostro server può interrogare Google Play per verificare un acquisto e conservare un registro dello stato dell'acquisto (prodotto, stato, prefisso troncato dell'identificativo d'acquisto) non collegato alla tua identità</li>
+        <li><strong style="color:var(--text)">Google Cloud Run</strong> — hosting del server; il provider registra automaticamente l'indirizzo IP e il tipo di app (user-agent) di ogni richiesta, conservati per 30 giorni per sicurezza e funzionamento</li>
         <li><strong style="color:var(--text)">Riconoscimento vocale del dispositivo</strong> — facoltativo: l'input vocale usa il servizio di riconoscimento vocale del tuo dispositivo (di solito fornito da Google); TACT riceve solo il testo risultante, mai la registrazione audio</li>
       </ul>
 
@@ -580,7 +585,7 @@
       <p>La cronologia dei messaggi riformulati è memorizzata solo sul tuo dispositivo. Non viene mai sincronizzata con i nostri server.</p>
 
       <h2 data-num="08">Eliminazione dei dati</h2>
-      <p>TACT non crea account utente. Puoi eliminare la cronologia locale dalle impostazioni dell'app in qualsiasi momento.</p>
+      <p>TACT non crea account utente. I registri tecnici del provider di hosting vengono eliminati automaticamente dopo 30 giorni; le valutazioni sono anonime e non possono essere collegate a una persona. Puoi eliminare la cronologia locale dalle impostazioni dell'app in qualsiasi momento.</p>
 
       <h2 data-num="09">Bambini</h2>
       <p>TACT non è destinato a bambini di età inferiore ai 13 anni. L'app non raccoglie consapevolmente dati relativi a minori.</p>
